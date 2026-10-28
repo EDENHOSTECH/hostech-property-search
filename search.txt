@@ -1,0 +1,79 @@
+const propertyForm = document.querySelector('#propertyForm');
+const titleInput = document.querySelector('#titleInput');
+const priceInput = document.querySelector('#priceInput');
+const statusInput = document.querySelector('#statusInput');
+const searchProperty = document.querySelector('#searchProperty');
+const message = document.querySelector('#message');
+const results = document.querySelector('#results');
+
+propertyForm.addEventListener('submit', async function(event)
+{
+    
+    event.preventDefault();
+
+    const title = titleInput.value;
+    const price = priceInput.value;
+    const status = statusInput.value;
+    const pricevalue = Number(price);
+
+    const params = new URLSearchParams();
+
+    // Filter
+    if(title !== ""){
+        params.set("title", title);
+    }
+    if(price !== ""){
+        params.set("price", price);
+    }
+    if(status !== "")
+    {
+        params.set("status", status);
+    }
+    
+    message.textContent = "Searching properties.......";
+    results.replaceChildren();
+
+    try{
+        const response = await fetch("search_api.php?" + params.toString());
+
+        const data = await response.json();
+
+        if(!response.ok || data.success !== true){
+            throw new Error(data.message ||"Unable to search property");
+        }
+
+        message.textContent = `${data.count} propert${data.count === 1 ? "y" : "ies" }`;
+
+        if(data.properties.length === 0)
+        {
+            message.textContent = "No matching properties found";
+            return;
+        }
+
+        // Create a card for each property returned by the response
+        data.properties.forEach(function(property)
+        {
+            const card = document.createElement('div');
+            card.className = "property";
+
+            const heading = document.createElement('h3');
+            heading.textContent = property.title;
+
+            const price = document.createElement('p');
+            price.textContent = "Price: N" + Number(property.price).toLocaleString('en-NG');
+
+            const status = document.createElement('span');
+            status.textContent = property.status;
+
+            card.append(heading, price, status);
+
+            results.appendChild(card);
+            
+        });
+
+    }catch(error)
+    {
+        message.textContent = error.message;
+    }
+
+});

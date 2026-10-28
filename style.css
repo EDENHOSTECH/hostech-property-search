@@ -1,0 +1,50 @@
+body{
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    padding: 0 16px;
+    margin: 40px auto;
+}
+input, button, select{
+    padding: 10px;
+    margin: 5px 0;
+}
+input{
+    width: 100%;
+    box-sizing: border-box;
+}
+button{
+    cursor: pointer;
+}
+.property{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+}
+/* body{
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+input, button{
+    padding: 10px;
+    margin: 5px 0;
+}
+input{
+    width: 100%;
+    box-sizing: border-box;
+}
+button{
+    cursor: pointer;
+}
+.property{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+}
+#message{
+    margin-top: 16px;
+} */
